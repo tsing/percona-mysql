@@ -42,7 +42,14 @@ function create_user_repl() {
 }
 
 function mysql_install_db() {
-  $DOCKEREXEC sh -c "service mysql stop;/usr/bin/mysql_install_db --defaults-file=/etc/mysql/my.cnf;service mysql start"
+  image=`docker ps|grep $sid|awk '{print $2}'`
+  docker stop $sid
+  docker run --rm -v /services/$sid/data:/var/lib/mysql -v /services/$sid/log:/var/log/mysql $image /usr/bin/mysql_install_db
+  docker start $sid
+  sleep 3
+  $DOCKEREXEC sh -c 'mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME \"libmurmur_udf.so\""'
+  $DOCKEREXEC sh -c 'mysql -e "CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME \"libfnv1a_udf.so\""'
+  $DOCKEREXEC sh -c 'mysql -e "CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME \"libfnv_udf.so\""'
 }
 
 function change_to_master() {
