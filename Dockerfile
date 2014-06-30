@@ -9,7 +9,8 @@ RUN  echo 'deb http://repo.percona.com/apt trusty main' > /etc/apt/sources.list.
 RUN  apt-get update
 RUN  DEBIAN_FRONTEND=noninteractive apt-get -y install percona-server-server-5.6
 
-ADD  . /opt/nicescale
+ADD  . /opt/nicedocker
 
 EXPOSE  3306
-CMD  /usr/bin/mysqld_safe
+
+CMD  ["/usr/bin/mysqld_safe"]
