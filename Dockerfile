@@ -13,4 +13,4 @@ ADD  . /opt/nicedocker
 
 EXPOSE  3306
 
-CMD  ["/usr/bin/mysqld_safe"]
+CMD  ["/opt/nicedocker/run.sh"]
