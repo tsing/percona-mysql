@@ -94,7 +94,7 @@ if [ -n "$msid" ]; then
   mport_ruby="require 'fp/node'; puts FP::Vars.get_global_var_by_service('$msid', 'port', 'mysql')"
 fi
 
-mysql_install_db
+#mysql_install_db
 if [ "$msid" = 'single' ]; then
   echo "single mysql"
 elif [ "$msid" != "$sid" ]; then
