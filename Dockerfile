@@ -10,6 +10,7 @@ RUN  apt-get update
 RUN  DEBIAN_FRONTEND=noninteractive apt-get -y install percona-server-server-5.6
 
 ADD  . /opt/nicedocker
+ADD my.cnf /etc/mysql/conf.d/my.cnf
 
 EXPOSE  3306
 
